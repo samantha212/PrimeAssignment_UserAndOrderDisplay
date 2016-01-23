@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="orderApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Weekend Assignment</title>
+    <link href="views/stylesheet.css" rel="stylesheet">
+    <script src="vendor/angular/angular.min.js"></script>
+    <script src="vendor/angular-route/angular-route.min.js"></script>
+    <script src="assets/scripts/client.min.js"></script>
+
+</head>
+<body ng-controller="mainController">
+    <h1>Hello world!</h1>
+
+        <div>
+            <form>
+                <label for="userSelect">Select User:</label>
+                <select name="userSelect" id="userSelect" ng-model="data.userSelect">
+                    <option ng-repeat="user in users" value={{user.id}}>{{user.name}}</option>
+                </select>
+                <button ng-click="getUserAddresses(data.userSelect)">Get address</button>
+            </form>
+            <div class="user-addresses" ng-repeat="address in data.results">
+                <!--<p>{{data.userSelect}}</p>-->
+                <p>{{address.address_type}}</p>
+                <p>{{address.address_street}}</p>
+                <p>{{address.address_city}}, {{address.address_state}} {{address.address_zip}}</p>
+            </div>
+        </div>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<form ng-controller="ExampleController">-->
+<!--<h2>Which user would you like to select?</h2>-->
+<!--<label ng-repeat="name in names" for="{{name}}">-->
+<!--{{name}}-->
+<!--<input type="radio"-->
+<!--ng-model="my.favorite"-->
+<!--ng-value="name"-->
+<!--id="{{name}}"-->
+<!--name="favorite">-->
+<!--</label>-->
+<!--<div>You chose {{my.favorite}}</div>-->
+<!--</form>-->
