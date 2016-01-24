@@ -17,6 +17,8 @@ router.get('/', function(request, response){
 
 
 
+
+
 router.get('/users', function(request, response){
     //console.log('This is working!');
     var results = [];
@@ -86,6 +88,10 @@ router.get('/getuserorders', function(request, response) {
         });
     });
     console.log("hello from server side.");
+});
+
+router.get('/*', function(request, response){
+    response.sendFile(path.join(__dirname, '../public/views/index.html'));
 });
 
 module.exports = router;

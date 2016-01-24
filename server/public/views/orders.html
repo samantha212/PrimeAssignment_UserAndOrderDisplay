@@ -14,8 +14,8 @@
         <p>Order ID: {{order.order_id}}</p>
         <p>User ID: {{order.user_id}}</p>
         <p>Shipping Address ID: {{order.ship_address_id}}</p>
-        <p>Amount: {{order.amount}}</p>
-        <p>Order Date: {{order.order_date}}</p>
+        <p>Amount: {{order.amount | currency}}</p>
+        <p>Order Date: {{order.order_date| date: format: medium}}</p>
         <p>Order Address: </p>
         <p>{{order.address_street}}</p>
         <p>{{order.address_city}}, {{order.address_state}} {{order.address.address_zip}}</p>
