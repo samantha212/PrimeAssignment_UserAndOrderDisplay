@@ -1,0 +1,27 @@
+<div ng-controller="OrdersController">
+    <form>
+        <label for="userSelectForOrders">Select User:</label>
+        <select name="userSelectForOrders" id="userSelectForOrders" ng-model="data.userSelectForOrders">
+            <option ng-repeat="user in users" value={{user.id}}>{{user.name}}</option>
+        </select>
+        <input type="text" name="startDate" placeholder="mm/dd/yyyy" ng-model="data.startDate">
+        <input type="text" name="endDate" placeholder="mm/dd/yyyy" ng-model="data.endDate">
+        <!--<button ng-click="getOrders(data.userSelectForOrders, data.startDate, data.endDate)">Get Orders</button>-->
+        <button ng-click="getSpecificOrders(data.userSelectForOrders, data.startDate, data.endDate)">Get Orders</button>
+    </form>
+
+    <div ng-repeat="order in orderData.results">
+        <p>Order ID: {{order.order_id}}</p>
+        <p>User ID: {{order.user_id}}</p>
+        <p>Shipping Address ID: {{order.ship_address_id}}</p>
+        <p>Amount: {{order.amount}}</p>
+        <p>Order Date: {{order.order_date}}</p>
+        <p>Order Address: </p>
+        <p>{{order.address_street}}</p>
+        <p>{{order.address_city}}, {{order.address_state}} {{order.address.address_zip}}</p>
+        <br>
+        <br>
+        <br>
+    </div>
+    <p>Total Cost of Selected Orders: {{orderData.dollarTotal | currency}}</p>
+</div>

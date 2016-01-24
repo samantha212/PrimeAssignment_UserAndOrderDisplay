@@ -16,6 +16,7 @@ router.get('/', function(request, response){
 });
 
 
+
 router.get('/users', function(request, response){
     //console.log('This is working!');
     var results = [];

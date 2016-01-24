@@ -1,4 +1,29 @@
-var app = angular.module('orderApp', []);
+var app = angular.module('orderApp', ['ngRoute']);
+
+app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+    $routeProvider
+        .when('/addresses', {
+            templateUrl: 'views/addresses.html',
+            controller: 'AddressesController'
+        })
+        .when('/orders', {
+            templateUrl: 'views/orders.html',
+            controller: 'OrdersController'
+        });
+
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
+}]);
+
+app.controller('AddressesController', ['$scope','getAddresses', function($scope, getAddresses){
+
+}]);
+
+app.controller('OrdersController', ['$scope', 'getOrders', function($scope, getOrders){
+
+}]);
 
 app.controller('mainController', ['$scope', '$http', 'getAddresses', 'getOrders', function($scope, $http, getAddresses, getOrders){
     $scope.users = [];
@@ -23,6 +48,8 @@ app.controller('mainController', ['$scope', '$http', 'getAddresses', 'getOrders'
 
 
 }]);
+
+
 
 //Service to get addresses from server.
 app.factory('getAddresses', ['$http', function($http){
@@ -113,23 +140,13 @@ app.factory('getOrders', ['$http', function($http){
                     orderCost = parseFloat(temp.amount);
                     orderData.dollarTotal += orderCost;
                     console.log(orderData.dollarTotal);
-                    //formattedCost =
                     userOrders.push(temp);
                 }
             }
-            //console.log(userOrders);
         }
-        //console.log(dollarTotal);
 
         orderData.results = userOrders;
 
-        //var dateOne = "04-15-2014";
-        //var dateTwo = "04-15-2014";
-        //if(dateOne >= dateTwo) {
-        //    console.log("one is bigger");
-        //} else {
-        //    console.log("two is bigger");
-        //}
     };
 
     return {
@@ -137,31 +154,5 @@ app.factory('getOrders', ['$http', function($http){
         getSpecificOrders: getSpecificOrders,
         orderData: orderData
     }
-
-
-
-
-
-
-
-
-    //var data = {
-    //    results: []
-    //};
-    //
-    //var getUserOrders = function(){
-    //    //$http.get('/getuserorders', {params: {name: name}}).then(function(response){
-    //    $http.get('/getuserorders').then(function(response){
-    //        //data.results = response;
-    //        console.log = (response);
-    //    });
-    //    //console.log(name);
-    //};
-    //
-    //return {
-    //    data: data,
-    //    getUserOrders: getUserOrders
-    //}
-
 
 }]);

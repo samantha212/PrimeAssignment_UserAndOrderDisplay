@@ -1,0 +1,14 @@
+<div ng-controller="AddressesController">
+    <form>
+        <label for="userSelectForAddresses">Select User:</label>
+        <select name="userSelectForAddresses" id="userSelectForAddresses" ng-model="data.userSelectForAddresses">
+            <option ng-repeat="user in users" value={{user.id}}>{{user.name}}</option>
+        </select>
+        <button ng-click="getUserAddresses(data.userSelectForAddresses)">Get address</button>
+    </form>
+    <div class="user-addresses" ng-repeat="address in data.results">
+        <p>{{address.address_type}}</p>
+        <p>{{address.address_street}}</p>
+        <p>{{address.address_city}}, {{address.address_state}} {{address.address_zip}}</p>
+    </div>
+</div>
