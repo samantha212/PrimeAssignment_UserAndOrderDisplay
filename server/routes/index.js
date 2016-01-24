@@ -15,12 +15,7 @@ router.get('/', function(request, response){
     response.sendFile(joinedPath);
 });
 
-
-
-
-
 router.get('/users', function(request, response){
-    //console.log('This is working!');
     var results = [];
     pg.connect(connectionString, function(err, client, done){
 
@@ -41,11 +36,7 @@ router.get('/users', function(request, response){
     });
 });
 
-
 router.get('/getuseraddresses', function(request, response){
-    //console.log('This is working!');
-
-    //response.send("Hello from the server.");
     var results = [];
 
     pg.connect(connectionString, function(err, client, done){

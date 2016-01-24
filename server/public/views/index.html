@@ -11,9 +11,10 @@
 </head>
 <body ng-controller="mainController">
     <h1>User Address and Order Information</h1>
-        <div>
-            <a href="/addresses"><button>Get Addresses</button></a>
-            <a href="/orders"><button>Get Order Information</button></a>
+    <h2>To retrieve your information, please select which option you would like below.</h2>
+        <div class="button-container">
+            <a href="/addresses"><button class="main-buttons">Addresses</button></a>
+            <a href="/orders"><button class="main-buttons">Order Information</button></a>
         </div>
 
         <div ng-view>

@@ -1,27 +1,33 @@
-<div ng-controller="OrdersController">
-    <form>
+<div>
+    <form class="collect-info">
+        <h3>Please select the user and date range for which you would like to view order history.</h3>
         <label for="userSelectForOrders">Select User:</label>
         <select name="userSelectForOrders" id="userSelectForOrders" ng-model="data.userSelectForOrders">
             <option ng-repeat="user in users" value={{user.id}}>{{user.name}}</option>
         </select>
-        <input type="text" name="startDate" placeholder="mm/dd/yyyy" ng-model="data.startDate">
-        <input type="text" name="endDate" placeholder="mm/dd/yyyy" ng-model="data.endDate">
-        <!--<button ng-click="getOrders(data.userSelectForOrders, data.startDate, data.endDate)">Get Orders</button>-->
+        <p>Start Date: <input type="text" name="startDate" placeholder="mm/dd/yyyy" ng-model="data.startDate"></p>
+        <p> End Date: <input type="text" name="endDate" placeholder="mm/dd/yyyy" ng-model="data.endDate"></p>
         <button ng-click="getSpecificOrders(data.userSelectForOrders, data.startDate, data.endDate)">Get Orders</button>
     </form>
-
-    <div ng-repeat="order in orderData.results">
-        <p>Order ID: {{order.order_id}}</p>
-        <p>User ID: {{order.user_id}}</p>
-        <p>Shipping Address ID: {{order.ship_address_id}}</p>
-        <p>Amount: {{order.amount | currency}}</p>
-        <p>Order Date: {{order.order_date| date: format: medium}}</p>
-        <p>Order Address: </p>
-        <p>{{order.address_street}}</p>
-        <p>{{order.address_city}}, {{order.address_state}} {{order.address.address_zip}}</p>
-        <br>
-        <br>
-        <br>
+    <div class="input-info">
+        <h2>Orders For: {{orderData.userName}}</h2>
+        <h3>Start Date: {{orderData.startDate}}</h3>
+        <h3>End Date: {{orderData.endDate}}</h3>
+        <h3 class="total">Total Cost of Selected Orders: {{orderData.dollarTotal | currency}}</h3>
     </div>
-    <p>Total Cost of Selected Orders: {{orderData.dollarTotal | currency}}</p>
+
+    <table style="width:100%">
+        <tr class="orders-display" ng-repeat="order in orderData.results">
+            <td>Order Date: {{order.order_date| date: format: medium}}</td>
+            <td>User ID: {{order.user_id}}</td>
+            <td>Order ID: {{order.order_id}}</td>
+            <td>Amount: {{order.amount | currency}}</td>
+            <td>Shipping Address ID: {{order.ship_address_id}}</td>
+            <td>Order Address: </td>
+            <td>{{order.address_street}}</td>
+            <td>{{order.address_city}}, {{order.address_state}} {{order.address.address_zip}}</td>
+        </tr>
+
+    </table>
+
 </div>

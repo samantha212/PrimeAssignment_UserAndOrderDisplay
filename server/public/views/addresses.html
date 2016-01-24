@@ -1,14 +1,23 @@
 <div ng-controller="AddressesController">
-    <form>
+    <form class="collect-info">
+        <h3>Please select the user for which you would like to view addresses on file.</h3>
         <label for="userSelectForAddresses">Select User:</label>
         <select name="userSelectForAddresses" id="userSelectForAddresses" ng-model="data.userSelectForAddresses">
             <option ng-repeat="user in users" value={{user.id}}>{{user.name}}</option>
         </select>
         <button ng-click="getUserAddresses(data.userSelectForAddresses)">Get address</button>
     </form>
-    <div class="user-addresses" ng-repeat="address in data.results">
-        <p>{{address.address_type}}</p>
-        <p>{{address.address_street}}</p>
-        <p>{{address.address_city}}, {{address.address_state}} {{address.address_zip}}</p>
+    <div class="input-info">
+        <h3>Addresses On File For: {{data.userName}}</h3>
     </div>
+    <table style="width:100%">
+        <tr class="user-addresses" ng-repeat="address in data.results">
+
+            <td>{{address.address_type}}</td>
+            <td>{{address.address_street}}</td>
+            <td>{{address.address_city}}, {{address.address_state}} {{address.address_zip}}</td>
+        </tr>
+
+    </table>
+
 </div>

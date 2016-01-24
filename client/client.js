@@ -7,9 +7,13 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
             controller: 'AddressesController'
         })
         .when('/orders', {
-            templateUrl: 'views/orders.html',
-            controller: 'OrdersController'
-        });
+        templateUrl: 'views/orders.html',
+        controller: 'OrdersController'
+        })
+        .when('/useraddresses', {
+        templateUrl: 'views/useraddresses.html',
+        controller: 'AddressesController'
+    });
 
     $locationProvider.html5Mode({
         enabled: true,
@@ -27,12 +31,10 @@ app.controller('OrdersController', ['$scope', 'getOrders', function($scope, getO
 
 app.controller('mainController', ['$scope', '$http', 'getAddresses', 'getOrders', function($scope, $http, getAddresses, getOrders){
     $scope.users = [];
-    var allOrdersArray = [];
     $scope.displayAddresses = [];
     $scope.getUserAddresses = getAddresses.getUserAddresses;
     $scope.data = getAddresses.data;
     $scope.orderData = getOrders.orderData;
-
     $scope.getSpecificOrders = getOrders.getSpecificOrders;
 
     angular.element(document).ready(function () {
@@ -53,13 +55,13 @@ app.controller('mainController', ['$scope', '$http', 'getAddresses', 'getOrders'
 app.factory('getAddresses', ['$http', function($http){
     var data = {
         allAddressArray: [],
-        results: []
+        results: [],
+        userName: ''
     };
 
     var createAddressesObject = function(){
         $http.get('/getuseraddresses').then(function(response){
             data.allAddressArray = response.data;
-
         });
     };
 
@@ -72,9 +74,10 @@ app.factory('getAddresses', ['$http', function($http){
             var temp = addresses[it];
             if (temp.user_id == id){
                 thisUserAddresses.push(temp);
+                data.userName = temp.name;
             }
         }
-        //console.log(thisUserAddresses);
+        data.showName = true;
         data.results = thisUserAddresses;
     };
 
@@ -92,13 +95,15 @@ app.factory('getOrders', ['$http', function($http){
     var orderData = {
         allOrdersArray: [],
         results: [],
-        dollarTotal: 0
+        dollarTotal: 0,
+        userName: '',
+        startDate: '',
+        endDate: ''
     };
 
     var getOrders = function(){
         $http.get('/getuserorders').then(function(response){
             orderData.allOrdersArray = response.data;
-            console.log(allOrdersArray);
         });
     };
 
@@ -120,9 +125,11 @@ app.factory('getOrders', ['$http', function($http){
                     orderData.dollarTotal += orderCost;
                     userOrders.push(temp);
                 }
+                orderData.userName = temp.name;
             }
         }
-
+        orderData.startDate = startDate;
+        orderData.endDate = endDate;
         orderData.results = userOrders;
     };
 
