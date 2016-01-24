@@ -10,22 +10,48 @@
 
 </head>
 <body ng-controller="mainController">
-    <h1>Hello world!</h1>
+    <h1>User Address and Order Information</h1>
 
         <div>
             <form>
-                <label for="userSelect">Select User:</label>
-                <select name="userSelect" id="userSelect" ng-model="data.userSelect">
+                <label for="userSelectForAddresses">Select User:</label>
+                <select name="userSelectForAddresses" id="userSelectForAddresses" ng-model="data.userSelectForAddresses">
                     <option ng-repeat="user in users" value={{user.id}}>{{user.name}}</option>
                 </select>
-                <button ng-click="getUserAddresses(data.userSelect)">Get address</button>
+                <button ng-click="getUserAddresses(data.userSelectForAddresses)">Get address</button>
             </form>
             <div class="user-addresses" ng-repeat="address in data.results">
-                <!--<p>{{data.userSelect}}</p>-->
                 <p>{{address.address_type}}</p>
                 <p>{{address.address_street}}</p>
                 <p>{{address.address_city}}, {{address.address_state}} {{address.address_zip}}</p>
             </div>
+        </div>
+
+        <div>
+            <form>
+                <label for="userSelectForOrders">Select User:</label>
+                <select name="userSelectForOrders" id="userSelectForOrders" ng-model="data.userSelectForOrders">
+                    <option ng-repeat="user in users" value={{user.id}}>{{user.name}}</option>
+                </select>
+                <input type="text" name="startDate" placeholder="mm/dd/yyyy" ng-model="data.startDate">
+                <input type="text" name="endDate" placeholder="mm/dd/yyyy" ng-model="data.endDate">
+                <!--<button ng-click="getOrders(data.userSelectForOrders, data.startDate, data.endDate)">Get Orders</button>-->
+                <button ng-click="getSpecificOrders(data.userSelectForOrders, data.startDate, data.endDate)">Get Orders</button>
+            </form>
+
+            <div ng-repeat="order in orderData.results">
+                <p>Order ID: {{order.order_id}}</p>
+                <p>User ID: {{order.user_id}}</p>
+                <p>Shipping Address ID: {{order.ship_address_id}}</p>
+                <p>Amount: {{order.amount}}</p>
+                <p>Order Date: {{order.order_date}}</p>
+                <p>Order ID: {{order.address_street}}</p>
+                <p>Order ID: {{order.address_city}}, {{order.address_state}} {{order.address.address_zip}}</p>
+                <br>
+                <br>
+                <br>
+            </div>
+            <p>Total Cost of Selected Orders: {{orderData.dollarTotal | currency}}</p>
         </div>
 
 

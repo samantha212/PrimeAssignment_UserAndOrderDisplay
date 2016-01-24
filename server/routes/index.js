@@ -40,7 +40,7 @@ router.get('/users', function(request, response){
 
 
 router.get('/getuseraddresses', function(request, response){
-    console.log('This is working!');
+    //console.log('This is working!');
 
     //response.send("Hello from the server.");
     var results = [];
@@ -62,6 +62,29 @@ router.get('/getuseraddresses', function(request, response){
             return response.json(results);
         });
     });
+});
+
+router.get('/getuserorders', function(request, response) {
+    var tempResults = [];
+
+    pg.connect(connectionString, function(err, client, done){
+
+        if(err) {
+            console.log(err);
+        }
+
+        var query = client.query('SELECT * FROM users JOIN orders ON users.id = orders.user_id JOIN addresses ON orders.ship_address_id = addresses.address_id ORDER BY orders.order_date ASC');
+
+        query.on('row', function(row) {
+            tempResults.push(row);
+        });
+
+        query.on('end', function() {
+            client.end();
+            return response.json(tempResults);
+        });
+    });
+    console.log("hello from server side.");
 });
 
 module.exports = router;
